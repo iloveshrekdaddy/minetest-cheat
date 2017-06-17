@@ -60,6 +60,13 @@ core.register_chatcommand("clear_chat_queue", {
 	end,
 })
 
+core.register_chatcommand("respawn", {
+	description = core.gettext("Respawn"),
+	func = function(param)
+		core.send_respawn()
+	end,
+})
+
 function core.run_server_chatcommand(cmd, param)
 	core.send_chat_message("/" .. cmd .. " " .. param)
 end
