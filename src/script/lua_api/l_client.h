@@ -63,6 +63,9 @@ private:
 	// set_last_run_mod(modname)
 	static int l_set_last_run_mod(lua_State *L);
 
+	// show_node(pos, node)
+	static int l_show_node(lua_State *L);
+
 	// get_node(pos)
 	static int l_get_node_or_nil(lua_State *L);
 
