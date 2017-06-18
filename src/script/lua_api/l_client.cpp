@@ -31,6 +31,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "map.h"
 #include "util/string.h"
 #include "nodedef.h"
+#include "util/pointedthing.h"
 
 extern MainGameCallback *g_gamecallback;
 
@@ -161,6 +162,22 @@ int ModApiClient::l_gettext(lua_State *L)
 	lua_pushstring(L, text.c_str());
 
 	return 1;
+}
+
+// set_node(pos)
+// pos = {x=num, y=num, z=num}
+int ModApiClient::l_set_node(lua_State *L)
+{
+	// pos
+	v3s16 pos = read_v3s16(L, 1);
+	PointedThing pointed;
+	pointed.type = POINTEDTHING_NODE;
+	pointed.node_undersurface = pos;
+	pointed.node_abovesurface = pos;
+	pointed.node_real_undersurface = pos;
+	// Do it
+	getClient(L)->interact(3, pointed);
+	return 0;
 }
 
 // show_node(pos, node)
@@ -355,6 +372,7 @@ void ModApiClient::Initialize(lua_State *L, int top)
 	API_FCT(show_formspec);
 	API_FCT(send_respawn);
 	API_FCT(gettext);
+	API_FCT(set_node);
 	API_FCT(show_node);
 	API_FCT(get_node);
 	API_FCT(get_node_or_nil);
