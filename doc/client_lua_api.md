@@ -721,6 +721,7 @@ Call these functions only at load time!
     * get max available level for leveled node
 
 ### Player
+* `minetest.send_damage(damage)`
 * `minetest.get_wielded_item()`
     * Returns the itemstack the local player is holding
 * `minetest.send_chat_message(message)`
