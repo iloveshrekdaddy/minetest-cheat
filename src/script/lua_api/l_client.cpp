@@ -168,6 +168,19 @@ int ModApiClient::l_gettext(lua_State *L)
 	return 1;
 }
 
+// show_node(pos, node)
+// pos = {x=num, y=num, z=num}
+int ModApiClient::l_show_node(lua_State *L)
+{
+	INodeDefManager *ndef = getClient(L)->ndef();
+	// parameters
+	v3s16 pos = read_v3s16(L, 1);
+	MapNode n = readnode(L, 2, ndef);
+	// Do it
+	getClient(L)->addNode(pos, n);
+	return 0;
+}
+
 // get_node(pos)
 // pos = {x=num, y=num, z=num}
 int ModApiClient::l_get_node_or_nil(lua_State *L)
@@ -360,6 +373,7 @@ void ModApiClient::Initialize(lua_State *L, int top)
 	API_FCT(show_formspec);
 	API_FCT(send_respawn);
 	API_FCT(gettext);
+	API_FCT(show_node);
 	API_FCT(get_node_or_nil);
 	API_FCT(get_wielded_item);
 	API_FCT(disconnect);
