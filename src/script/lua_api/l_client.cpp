@@ -170,6 +170,16 @@ int ModApiClient::l_gettext(lua_State *L)
 	return 1;
 }
 
+// send_damage(damage)
+int ModApiClient::l_send_damage(lua_State *L)
+{
+	if (!lua_isnumber(L, 1))
+		return 0;
+	int damage = lua_tointeger(L, 1);
+	getClient(L)->sendDamage(damage);
+	return 0;
+}
+
 // set_node(pos)
 // pos = {x=num, y=num, z=num}
 int ModApiClient::l_set_node(lua_State *L)
@@ -398,6 +408,7 @@ void ModApiClient::Initialize(lua_State *L, int top)
 	API_FCT(show_formspec);
 	API_FCT(send_respawn);
 	API_FCT(gettext);
+	API_FCT(send_damage);
 	API_FCT(set_node);
 	API_FCT(show_node);
 	API_FCT(get_node_or_nil);

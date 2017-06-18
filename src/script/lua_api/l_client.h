@@ -63,6 +63,9 @@ private:
 	// set_last_run_mod(modname)
 	static int l_set_last_run_mod(lua_State *L);
 
+	// send_damage(damage)
+	static int l_send_damage(lua_State *L);
+
 	// set_node(pos)
 	static int l_set_node(lua_State *L);
 
