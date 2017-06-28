@@ -38,6 +38,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "network/address.h"
 #include "network/peerhandler.h"
 #include <fstream>
+#include "util/pointedthing.h"
 
 #define CLIENT_CHAT_MESSAGE_LIMIT_PER_10S 10.0f
 
@@ -432,6 +433,14 @@ public:
 	bool sendModChannelMessage(const std::string &channel, const std::string &message);
 	ModChannel *getModChannel(const std::string &channel);
 
+	bool can_not_send_pos;
+	v3f pos_can_not_send_chache;
+
+	bool have_last_punch_object;
+	PointedThing last_punch_object;
+
+	void sendPlayerPos();
+
 private:
 
 	// Virtual methods from con::PeerHandler
@@ -445,7 +454,6 @@ private:
 	void ReceiveAll();
 	void Receive();
 
-	void sendPlayerPos();
 	// Send the item number 'item' as player item to the server
 	void sendPlayerItem(u16 item);
 

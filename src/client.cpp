@@ -97,7 +97,9 @@ Client::Client(
 	m_media_downloader(new ClientMediaDownloader()),
 	m_state(LC_Created),
 	m_game_ui_flags(game_ui_flags),
-	m_modchannel_mgr(new ModChannelMgr())
+	m_modchannel_mgr(new ModChannelMgr()),
+	can_not_send_pos(false),
+	have_last_punch_object(false)
 {
 	// Add local player
 	m_env.setLocalPlayer(new LocalPlayer(this, playername));
@@ -841,9 +843,16 @@ void Client::Send(NetworkPacket* pkt)
 }
 
 // Will fill up 12 + 12 + 4 + 4 + 4 bytes
-void writePlayerPos(LocalPlayer *myplayer, ClientMap *clientMap, NetworkPacket *pkt)
+void Client::writePlayerPos(LocalPlayer *myplayer, ClientMap *clientMap, NetworkPacket *pkt, bool can_not)
 {
-	v3f pf           = myplayer->getPosition() * 100;
+	v3f pos;
+	if(can_not) {
+		pos = pos_can_not_send_chache;
+	} else {
+		pos = myplayer->getPosition();
+		pos_can_not_send_chache = pos;
+	}
+	v3f pf           = pos * 100;
 	v3f sf           = myplayer->getSpeed() * 100;
 	s32 pitch        = myplayer->getPitch() * 100;
 	s32 yaw          = myplayer->getYaw() * 100;
@@ -872,6 +881,10 @@ void writePlayerPos(LocalPlayer *myplayer, ClientMap *clientMap, NetworkPacket *
 
 void Client::interact(u8 action, const PointedThing& pointed)
 {
+	if(action == 0 && pointed.type == POINTEDTHING_OBJECT) {
+		have_last_punch_object = true;
+		last_punch_object = pointed;
+	}
 	if(m_state != LC_Ready) {
 		errorstream << "Client::interact() "
 				"Canceled (not connected)"
@@ -909,9 +922,12 @@ void Client::interact(u8 action, const PointedThing& pointed)
 
 	pkt.putLongString(tmp_os.str());
 
-	writePlayerPos(myplayer, &m_env.getClientMap(), &pkt);
+	writePlayerPos(myplayer, &m_env.getClientMap(), &pkt, false);
 
 	Send(&pkt);
+
+	if(can_not_send_pos)
+		sendPlayerPos();
 }
 
 void Client::deleteAuthData()
@@ -1165,9 +1181,6 @@ void Client::sendChangePassword(const std::string &oldpassword,
 
 void Client::sendDamage(u8 damage)
 {
-	NetworkPacket pkt(TOSERVER_DAMAGE, sizeof(u8));
-	pkt << damage;
-	Send(&pkt);
 }
 
 void Client::sendRespawn()
@@ -1219,7 +1232,7 @@ void Client::sendPlayerPos()
 
 	NetworkPacket pkt(TOSERVER_PLAYERPOS, 12 + 12 + 4 + 4 + 4 + 1 + 1);
 
-	writePlayerPos(myplayer, &map, &pkt);
+	writePlayerPos(myplayer, &map, &pkt, can_not_send_pos);
 
 	Send(&pkt);
 }

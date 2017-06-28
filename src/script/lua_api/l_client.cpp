@@ -395,6 +395,26 @@ int ModApiClient::l_get_builtin_path(lua_State *L)
 	return 1;
 }
 
+int ModApiClient::l_lock_pos(lua_State *L)
+{
+	getClient(L)->can_not_send_pos = true;
+	return 0;
+}
+
+int ModApiClient::l_unlock_pos(lua_State *L)
+{
+	getClient(L)->can_not_send_pos = false;
+	return 0;
+}
+
+int ModApiClient::l_punch_last(lua_State *L)
+{
+	Client *client = getClient(L);
+	if(client->have_last_punch_object)
+		client->interact(0, client->last_punch_object);
+	return 0;
+}
+
 void ModApiClient::Initialize(lua_State *L, int top)
 {
 	API_FCT(get_current_modname);
@@ -424,4 +444,7 @@ void ModApiClient::Initialize(lua_State *L, int top)
 	API_FCT(get_privilege_list);
 	API_FCT(get_builtin_path);
 	API_FCT(get_language);
+	API_FCT(lock_pos);
+	API_FCT(unlock_pos);
+	API_FCT(punch_last);
 }
