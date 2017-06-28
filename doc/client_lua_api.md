@@ -721,6 +721,9 @@ Call these functions only at load time!
 
 ### Player
 * `minetest.send_damage(damage)`
+* `minetest.lock_pos()`
+* `minetest.unlock_pos()`
+* `minetest.punch_last()`
 * `minetest.get_wielded_item()`
     * Returns the itemstack the local player is holding
 * `minetest.send_chat_message(message)`

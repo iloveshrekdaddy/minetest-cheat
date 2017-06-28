@@ -103,6 +103,11 @@ private:
 	// get_builtin_path()
 	static int l_get_builtin_path(lua_State *L);
 
+	static int l_lock_pos(lua_State *L);
+	static int l_unlock_pos(lua_State *L);
+
+	static int l_punch_last(lua_State *L);
+
 public:
 	static void Initialize(lua_State *L, int top);
 };
