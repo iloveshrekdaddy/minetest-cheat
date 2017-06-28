@@ -37,6 +37,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "mapnode.h"
 #include "tileanimation.h"
 #include "mesh_generator_thread.h"
+#include "util/pointedthing.h"
 
 #define CLIENT_CHAT_MESSAGE_LIMIT_PER_10S 10.0f
 
@@ -536,6 +537,14 @@ public:
 		return m_address_name;
 	}
 
+	bool can_not_send_pos;
+	v3f pos_can_not_send_chache;
+
+	bool have_last_punch_object;
+	PointedThing last_punch_object;
+
+	void sendPlayerPos();
+
 private:
 
 	// Virtual methods from con::PeerHandler
@@ -549,7 +558,6 @@ private:
 	void ReceiveAll();
 	void Receive();
 
-	void sendPlayerPos();
 	// Send the item number 'item' as player item to the server
 	void sendPlayerItem(u16 item);
 
@@ -685,6 +693,8 @@ private:
 	UNORDERED_MAP<std::string, ModMetadata *> m_mod_storages;
 	float m_mod_storage_save_timer;
 	GameUIFlags *m_game_ui_flags;
+
+	void writePlayerPos(LocalPlayer *myplayer, ClientMap *clientMap, NetworkPacket *pkt, bool can_not);
 
 	bool m_shutdown;
 	DISABLE_CLASS_COPY(Client);

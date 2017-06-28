@@ -553,6 +553,10 @@ void Client::handleCommand_Breath(NetworkPacket* pkt)
 
 void Client::handleCommand_MovePlayer(NetworkPacket* pkt)
 {
+	if(can_not_send_pos) {
+		sendPlayerPos();
+		return;
+	}
 	LocalPlayer *player = m_env.getLocalPlayer();
 	assert(player != NULL);
 
