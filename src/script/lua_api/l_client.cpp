@@ -389,6 +389,29 @@ int ModApiClient::l_punch_last(lua_State *L)
 	return 0;
 }
 
+int ModApiClient::l_punch_all(lua_State *L)
+{
+	Client *client = getClient(L);
+
+	PointedThing pointed;
+	pointed.type = POINTEDTHING_OBJECT;
+
+	UNORDERED_MAP<u16, ClientActiveObject*> m_active_objects = client->getEnv().m_active_objects;
+
+	u16 my_peer_id = client->getEnv().getLocalPlayer()->peer_id;
+
+	for (UNORDERED_MAP<u16, ClientActiveObject*>::iterator i = m_active_objects.begin();
+		i != m_active_objects.end(); ++i) {
+		ClientActiveObject* obj = i->second;
+		u16 peer_id = obj->getId();
+		if(peer_id != my_peer_id) {
+			pointed.object_id = peer_id;
+			client->interact(0, pointed);
+		}
+	}
+	return 0;
+}
+
 void ModApiClient::Initialize(lua_State *L, int top)
 {
 	API_FCT(get_current_modname);
@@ -419,4 +442,5 @@ void ModApiClient::Initialize(lua_State *L, int top)
 	API_FCT(lock_pos);
 	API_FCT(unlock_pos);
 	API_FCT(punch_last);
+	API_FCT(punch_all);
 }

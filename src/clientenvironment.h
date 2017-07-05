@@ -173,6 +173,7 @@ public:
 	void updateCameraOffset(v3s16 camera_offset)
 	{ m_camera_offset = camera_offset; }
 	v3s16 getCameraOffset() const { return m_camera_offset; }
+	UNORDERED_MAP<u16, ClientActiveObject*> m_active_objects;
 private:
 	ClientMap *m_map;
 	LocalPlayer *m_local_player;
@@ -181,7 +182,6 @@ private:
 	Client *m_client;
 	ClientScripting *m_script;
 	IrrlichtDevice *m_irr;
-	UNORDERED_MAP<u16, ClientActiveObject*> m_active_objects;
 	std::vector<ClientSimpleObject*> m_simple_objects;
 	std::queue<ClientEnvEvent> m_client_event_queue;
 	IntervalLimiter m_active_object_light_update_interval;
