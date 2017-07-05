@@ -141,6 +141,7 @@ public:
 	void updateCameraOffset(const v3s16 &camera_offset)
 	{ m_camera_offset = camera_offset; }
 	v3s16 getCameraOffset() const { return m_camera_offset; }
+	UNORDERED_MAP<u16, ClientActiveObject*> m_active_objects;
 private:
 	ClientMap *m_map;
 	LocalPlayer *m_local_player = nullptr;
