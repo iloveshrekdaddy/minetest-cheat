@@ -69,6 +69,9 @@ private:
 	// set_node(pos)
 	static int l_set_node(lua_State *L);
 
+	// dig_node(pos)
+	static int l_dig_node(lua_State *L);
+
 	// show_node(pos, node)
 	static int l_show_node(lua_State *L);
 

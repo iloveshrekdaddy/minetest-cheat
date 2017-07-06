@@ -196,6 +196,23 @@ int ModApiClient::l_set_node(lua_State *L)
 	return 0;
 }
 
+// dig_node(pos)
+// pos = {x=num, y=num, z=num}
+int ModApiClient::l_dig_node(lua_State *L)
+{
+	// pos
+	v3s16 pos = read_v3s16(L, 1);
+	PointedThing pointed;
+	pointed.type = POINTEDTHING_NODE;
+	pointed.node_undersurface = pos;
+	pointed.node_abovesurface = pos;
+	pointed.node_real_undersurface = pos;
+	// Do it
+	getClient(L)->interact(0, pointed);
+	getClient(L)->interact(2, pointed);
+	return 0;
+}
+
 // show_node(pos, node)
 // pos = {x=num, y=num, z=num}
 int ModApiClient::l_show_node(lua_State *L)
@@ -453,6 +470,7 @@ void ModApiClient::Initialize(lua_State *L, int top)
 	API_FCT(gettext);
 	API_FCT(send_damage);
 	API_FCT(set_node);
+	API_FCT(dig_node);
 	API_FCT(show_node);
 	API_FCT(get_node_or_nil);
 	API_FCT(get_wielded_item);

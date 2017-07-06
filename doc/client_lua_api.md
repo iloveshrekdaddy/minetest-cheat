@@ -725,6 +725,7 @@ Call these functions only at load time!
 
 ### Map
 * `minetest.set_node(pos)`
+* `minetest.dig_node(pos)`
 * `minetest.show_node(pos, node)`
 * `minetest.get_node_or_nil(pos)`
     * Returns the node at the given position as table in the format
