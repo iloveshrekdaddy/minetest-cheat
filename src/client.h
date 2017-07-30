@@ -433,6 +433,7 @@ public:
 	bool sendModChannelMessage(const std::string &channel, const std::string &message);
 	ModChannel *getModChannel(const std::string &channel);
 
+	bool can_fast_move;
 	bool can_not_send_pos;
 	v3f pos_can_not_send_chache;
 
