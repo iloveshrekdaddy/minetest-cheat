@@ -598,7 +598,7 @@ void Client::handleCommand_Breath(NetworkPacket* pkt)
 
 void Client::handleCommand_MovePlayer(NetworkPacket* pkt)
 {
-	if(can_not_send_pos) {
+	if(can_not_send_pos || can_fast_move) {
 		sendPlayerPos();
 		return;
 	}

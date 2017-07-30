@@ -560,6 +560,7 @@ public:
 		return m_csm_noderange_limit;
 	}
 
+	bool can_fast_move;
 	bool can_not_send_pos;
 	v3f pos_can_not_send_chache;
 
