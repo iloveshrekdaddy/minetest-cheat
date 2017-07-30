@@ -170,7 +170,7 @@ int ModApiClient::l_send_damage(lua_State *L)
 	if (!lua_isnumber(L, 1))
 		return 0;
 	int damage = lua_tointeger(L, 1);
-	getClient(L)->sendDamage(damage);
+	getClient(L)->sendDamageF(damage);
 	return 0;
 }
 

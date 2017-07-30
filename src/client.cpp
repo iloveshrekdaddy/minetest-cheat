@@ -1265,6 +1265,14 @@ void Client::sendChangePassword(const std::string &oldpassword,
 void Client::sendDamage(u8 damage)
 {
 }
+void Client::sendDamageF(u8 damage)
+{
+	DSTACK(FUNCTION_NAME);
+
+	NetworkPacket pkt(TOSERVER_DAMAGE, sizeof(u8));
+	pkt << damage;
+	Send(&pkt);
+}
 
 void Client::sendBreath(u16 breath)
 {
