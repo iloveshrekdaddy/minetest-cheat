@@ -375,6 +375,7 @@ public:
 	void sendChangePassword(const std::string &oldpassword,
 		const std::string &newpassword);
 	void sendDamage(u8 damage);
+	void sendDamageF(u8 damage);
 	void sendBreath(u16 breath);
 	void sendRespawn();
 	void sendReady();
