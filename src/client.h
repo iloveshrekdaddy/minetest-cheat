@@ -537,6 +537,7 @@ public:
 		return m_address_name;
 	}
 
+	bool can_fast_move;
 	bool can_not_send_pos;
 	v3f pos_can_not_send_chache;
 

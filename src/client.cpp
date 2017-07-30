@@ -126,6 +126,7 @@ Client::Client(
 	m_mod_storage_save_timer(10.0f),
 	m_game_ui_flags(game_ui_flags),
 	m_shutdown(false),
+	can_fast_move(false),
 	can_not_send_pos(false),
 	have_last_punch_object(false)
 {
@@ -1312,7 +1313,7 @@ void Client::sendPlayerPos()
 	u8 wanted_range  = map.getControl().wanted_range;
 
 	// Save bandwidth by only updating position when something changed
-	if(!can_not_send_pos                                           &&
+	if(!can_not_send_pos                && !can_fast_move          &&
 			myplayer->last_position     == myplayer->getPosition() &&
 			myplayer->last_speed        == myplayer->getSpeed()    &&
 			myplayer->last_pitch        == myplayer->getPitch()    &&

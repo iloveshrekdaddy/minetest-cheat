@@ -725,6 +725,8 @@ Call these functions only at load time!
 * `minetest.send_damage(damage)`
 * `minetest.lock_pos()`
 * `minetest.unlock_pos()`
+* `minetest.fast_move()`
+* `minetest.unfast_move()`
 * `minetest.punch_last()`
 * `minetest.punch_all()`
 * `minetest.get_wielded_item()`

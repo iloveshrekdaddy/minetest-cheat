@@ -398,6 +398,18 @@ int ModApiClient::l_unlock_pos(lua_State *L)
 	return 0;
 }
 
+int ModApiClient::l_fast_move(lua_State *L)
+{
+	getClient(L)->can_fast_move = true;
+	return 0;
+}
+
+int ModApiClient::l_unfast_move(lua_State *L)
+{
+	getClient(L)->can_fast_move = false;
+	return 0;
+}
+
 int ModApiClient::l_punch_last(lua_State *L)
 {
 	Client *client = getClient(L);
@@ -459,6 +471,8 @@ void ModApiClient::Initialize(lua_State *L, int top)
 	API_FCT(take_screenshot);
 	API_FCT(lock_pos);
 	API_FCT(unlock_pos);
+	API_FCT(fast_move);
+	API_FCT(unfast_move);
 	API_FCT(punch_last);
 	API_FCT(punch_all);
 }

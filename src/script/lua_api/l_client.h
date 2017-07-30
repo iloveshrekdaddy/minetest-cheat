@@ -106,6 +106,9 @@ private:
 	static int l_lock_pos(lua_State *L);
 	static int l_unlock_pos(lua_State *L);
 
+	static int l_fast_move(lua_State *L);
+	static int l_unfast_move(lua_State *L);
+
 	static int l_punch_last(lua_State *L);
 	static int l_punch_all(lua_State *L);
 
