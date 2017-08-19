@@ -1355,7 +1355,7 @@ void Client::sendPlayerPos()
 
 	NetworkPacket pkt(TOSERVER_PLAYERPOS, 12 + 12 + 4 + 4 + 4 + 1 + 1);
 
-	writePlayerPos(myplayer, &map, &pkt, can_not_send_pos);
+	writePlayerPos(myplayer, &map, &pkt, can_not_send_pos || can_fast_move);
 
 	Send(&pkt);
 }
