@@ -93,7 +93,7 @@ Client::Client(
 	m_chosen_auth_mech(AUTH_MECHANISM_NONE),
 	m_media_downloader(new ClientMediaDownloader()),
 	m_state(LC_Created),
-	m_game_ui_flags(game_ui_flags)
+	m_game_ui_flags(game_ui_flags),
 	can_fast_move(false),
 	can_not_send_pos(false),
 	have_last_punch_object(false)

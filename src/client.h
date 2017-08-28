@@ -568,6 +568,8 @@ public:
 	bool have_last_punch_object;
 	PointedThing last_punch_object;
 
+	void writePlayerPos(LocalPlayer *myplayer, ClientMap *clientMap, NetworkPacket *pkt, bool can_not);
+
 	void sendPlayerPos();
 
 private:
