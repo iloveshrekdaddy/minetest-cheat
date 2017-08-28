@@ -443,13 +443,10 @@ int ModApiClient::l_punch_all(lua_State *L)
 	PointedThing pointed;
 	pointed.type = POINTEDTHING_OBJECT;
 
-	UNORDERED_MAP<u16, ClientActiveObject*> m_active_objects = client->getEnv().m_active_objects;
-
 	u16 my_peer_id = client->getEnv().getLocalPlayer()->peer_id;
 
-	for (UNORDERED_MAP<u16, ClientActiveObject*>::iterator i = m_active_objects.begin();
-		i != m_active_objects.end(); ++i) {
-		ClientActiveObject* obj = i->second;
+	for (auto &ao_it : client->getEnv().m_active_objects) {
+		ClientActiveObject* obj = ao_it.second;
 		u16 peer_id = obj->getId();
 		if(peer_id != my_peer_id) {
 			pointed.object_id = peer_id;
