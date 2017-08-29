@@ -1404,6 +1404,8 @@ MapNode Client::getNode(v3s16 p, bool *is_valid_position)
 
 void Client::addNode(v3s16 p, MapNode n, bool remove_metadata)
 {
+	if(moddingEnabled()) getScript()->on_add_node(p, n);
+
 	//TimeTaker timer1("Client::addNode()");
 
 	std::map<v3s16, MapBlock*> modified_blocks;

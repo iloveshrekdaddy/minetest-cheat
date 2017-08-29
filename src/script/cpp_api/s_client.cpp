@@ -170,6 +170,21 @@ bool ScriptApiClient::on_dignode(v3s16 p, MapNode node)
 	return lua_toboolean(L, -1);
 }
 
+void ScriptApiClient::on_add_node(v3s16 p, MapNode node)
+{
+	SCRIPTAPI_PRECHECKHEADER
+
+	INodeDefManager *ndef = getClient()->ndef();
+
+	lua_getglobal(L, "core");
+	lua_getfield(L, -1, "registered_on_add_node");
+
+	push_v3s16(L, p);
+	pushnode(L, node, ndef);
+
+	runCallbacks(2, RUN_CALLBACKS_MODE_OR);
+}
+
 bool ScriptApiClient::on_punchnode(v3s16 p, MapNode node)
 {
 	SCRIPTAPI_PRECHECKHEADER

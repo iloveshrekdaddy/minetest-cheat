@@ -639,6 +639,7 @@ Minetest namespace reference
 ### Global callback registration functions
 Call these functions only at load time!
 
+* `minetest.register_on_add_node(func(pos, node))`
 * `minetest.register_globalstep(func(dtime))`
     * Called every client environment step, usually interval of 0.1s
 * `minetest.register_on_shutdown(func())`

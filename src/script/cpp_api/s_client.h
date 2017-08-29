@@ -58,6 +58,8 @@ public:
 	bool on_placenode(const PointedThing &pointed, const ItemDefinition &item);
 	bool on_item_use(const ItemStack &item, const PointedThing &pointed);
 
+	void on_add_node(v3s16 p, MapNode node);
+
 	void setEnv(ClientEnvironment *env);
 };
 #endif
